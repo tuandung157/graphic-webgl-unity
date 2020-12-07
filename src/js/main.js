@@ -71,7 +71,7 @@ lake.position.y = -14.9;
 lake.position.z = 140;
 lake.receiveShadow = true;
 lake.castShadow = true;
-//scene.add( lake );
+scene.add( lake );
 
 
 //lake1
@@ -92,14 +92,14 @@ lake1.position.y = -14.9;
 lake1.position.z = 80;
 lake1.receiveShadow = true;
 lake1.castShadow = true;
-scene.add( lake1 );
+// scene.add( lake1 );
 
 //init lake with mirror
 // scene size
 const WIDTH = window.innerWidth;
 const HEIGHT = window.innerHeight;
 
-let mirrorLakeGeo = new THREE.CircleBufferGeometry(50, 64);
+let mirrorLakeGeo = new THREE.CircleBufferGeometry(20, 64);
 const mirrorLake = new Reflector( mirrorLakeGeo, {
     clipBias: 0.03,
     textureWidth: WIDTH * window.devicePixelRatio,
@@ -108,10 +108,10 @@ const mirrorLake = new Reflector( mirrorLakeGeo, {
 })
 
 mirrorLake.position.y = -4.5;
-mirrorLake.position.z = 120;
+mirrorLake.position.z = 80;
 mirrorLake.position.x = 50;
 mirrorLake.rotateX( - Math.PI / 2 );
-// scene.add( mirrorLake );
+scene.add( mirrorLake );
 
 // init
 function init(){
@@ -161,7 +161,7 @@ function initTent(){
 }
 
 //light
-var dirLight = new THREE.DirectionalLight(0xffffff, 0.2);
+var dirLight = new THREE.DirectionalLight(0xffffff, 0.8);
 
 dirLight.position.set(40,120,40);
 
