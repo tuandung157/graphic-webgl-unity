@@ -11,7 +11,7 @@ export default class Sky {
         let skyGeo = new THREE.SphereBufferGeometry(1000, 64, 64);
         const textureLoader = new THREE.TextureLoader();
 
-        let map = textureLoader.load("../resources/img/sky1.jpg");
+        let map = textureLoader.load("../resources/img/night.jpg");
         let skyMat = new THREE.MeshBasicMaterial({
             side: THREE.BackSide,
             color: 0xf494ce,

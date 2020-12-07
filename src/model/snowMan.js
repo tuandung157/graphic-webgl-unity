@@ -3,6 +3,7 @@ export default class SnowMan {
     constructor(x, y, z){
         this.snowMan = this.SnowMan();
         this.snowMan.position.set(x, y, z);
+        
     }
 
     SnowMan(){

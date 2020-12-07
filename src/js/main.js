@@ -8,7 +8,7 @@ import Tree from "/model/tree.js";
 import Moon from "/model/moon.js";
 import SnowMan from "/model/snowMan.js";
 import Log from "/model/log.js";
-
+import * as Tent from "/model/loadObj.js";
 
 const scene = new THREE.Scene();
 
@@ -67,9 +67,9 @@ let lakeMat = new THREE.MeshPhongMaterial({
 });
 
 let lake = new THREE.Mesh(lakeGeo, lakeMat);
-lake.position.x = 70;
+lake.position.x = 10;
 lake.position.y = -14.9;
-lake.position.z = 160;
+lake.position.z = 140;
 lake.receiveShadow = true;
 lake.castShadow = true;
 scene.add( lake );
@@ -89,16 +89,17 @@ const HEIGHT = window.innerHeight;
 
 let mirrorLakeGeo = new THREE.CircleBufferGeometry(50, 64);
 const mirrorLake = new Reflector( mirrorLakeGeo, {
-    clipBias: 0.003,
+    clipBias: 0.03,
     textureWidth: WIDTH * window.devicePixelRatio,
     textureHeight: HEIGHT * window.devicePixelRatio,
     color: 0x777777
 })
-mirrorLake.position.y = -4;
-mirrorLake.position.z = 80;
-mirrorLake.position.x = 20;
+
+mirrorLake.position.y = -4.5;
+mirrorLake.position.z = 120;
+mirrorLake.position.x = 50;
 mirrorLake.rotateX( - Math.PI / 2 );
-scene.add( mirrorLake );
+// scene.add( mirrorLake );
 
 // init
 function init(){
@@ -107,6 +108,7 @@ function init(){
     initMoon();
     initSnowMan();
     initLog();
+    initTent();
 }
 
 // init sky
@@ -116,7 +118,7 @@ function skyInit(){
 }
 //init snow
     let snow = new Snow();
-    let snowGroup = snow.createSnow(300);
+    let snowGroup = snow.createSnow(500);
     scene.add(snowGroup);
 //init tree
 function initTree(){
@@ -125,15 +127,11 @@ function initTree(){
 
     scene.add(new Tree(30, -10, -30).tree);
 
-    scene.add(new Tree(100, -10, 20).tree);
-    scene.add(new Tree(120, -10, 40).tree);
-    scene.add(new Tree(250, -10, -40).tree);
-    scene.add(new Tree(140, -10, 20).tree);
-    scene.add(new Tree(10, -10, 10).tree);
-    scene.add(new Tree(-10, -10, 0).tree);
+    scene.add(new Tree(0, -10, 20).tree);
+    scene.add(new Tree(-20, -10, 30).tree);
 }
 function initMoon(){
-    scene.add(new Moon(60,80,60).moon);
+    scene.add(new Moon(40,120,40).moon);
 }
 function initSnowMan(){
     scene.add(new SnowMan(30,-10,30).snowMan);
@@ -141,32 +139,39 @@ function initSnowMan(){
 function initLog(){
     scene.add(new Log(-20,-10,-20, Math.PI/4).log);
     scene.add(new Log(-30,-10,-30, 0).log);
+
+    scene.add(new Log(70,-10,30, Math.PI).log);
+    scene.add(new Log(80,-10,40, 0).log);
+}
+//tent
+function initTent(){
+    Tent.default(scene);
 }
 
 //light
 var dirLight = new THREE.DirectionalLight(0xffffff, 1);
 
-dirLight.position.set(60, 80, 30);
+dirLight.position.set(40,120,40);
 
 dirLight.castShadow = true;
 
-dirLight.shadow.camera.near = 10;
-dirLight.shadow.camera.far = 200;
+dirLight.shadow.camera.near = 100;
+dirLight.shadow.camera.far = 1000;
 dirLight.shadow.camera.left = -50;
 dirLight.shadow.camera.bottom = -50;
 dirLight.shadow.camera.right = 50;
 dirLight.shadow.camera.top = 50;
-dirLight.shadow.bias=0.0001;
-dirLight.target.position.set(20, -2, 0);
+dirLight.shadow.bias=0.00001;
+// dirLight.target.position.set(20, -2, 0);
 
 dirLight.shadow.radius = 1;
 scene.add(dirLight);
 // scene.add(dirLight.target);
 
-//test
-// let centerLight = new THREE.PointLight(0xee693c, 2, 30, 2);
-// centerLight.position.set(0, 2, 0);
-// scene.add(centerLight);
+// point light
+let centerLight = new THREE.PointLight(0xee693c, 5, 100, 2);
+centerLight.position.set(50, 2, 20);
+scene.add(centerLight);
 
 ////////////////////////////////////////////////////////////////////////
 function update(){
