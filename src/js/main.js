@@ -1,5 +1,6 @@
 import * as THREE from '/build/three.module.js';
 import {OrbitControls} from '/jsm/controls/OrbitControls.js';
+import {Reflector} from '/jsm/objects/Reflector.js';
 
 import Sky from "/model/sky.js";
 import Snow from "/model/snow.js";
@@ -80,6 +81,25 @@ scene.add( lake );
 // lake1.receiveShadow = true;
 // lake1.castShadow = true;
 // scene.add( lake1 );
+
+//init lake with mirror
+// scene size
+const WIDTH = window.innerWidth;
+const HEIGHT = window.innerHeight;
+
+let mirrorLakeGeo = new THREE.CircleBufferGeometry(50, 64);
+const mirrorLake = new Reflector( mirrorLakeGeo, {
+    clipBias: 0.003,
+    textureWidth: WIDTH * window.devicePixelRatio,
+    textureHeight: HEIGHT * window.devicePixelRatio,
+    color: 0x777777
+})
+mirrorLake.position.y = -4;
+mirrorLake.position.z = 80;
+mirrorLake.position.x = 20;
+mirrorLake.rotateX( - Math.PI / 2 );
+scene.add( mirrorLake );
+
 // init
 function init(){
     skyInit();
@@ -98,10 +118,12 @@ function skyInit(){
     let snow = new Snow();
     let snowGroup = snow.createSnow(300);
     scene.add(snowGroup);
-
+//init tree
 function initTree(){
     scene.add(new Tree(10, -10, 10).tree);
     scene.add(new Tree(-10, -10, 0).tree);
+
+    scene.add(new Tree(30, -10, -30).tree);
 
     scene.add(new Tree(100, -10, 20).tree);
     scene.add(new Tree(120, -10, 40).tree);
@@ -111,19 +133,20 @@ function initTree(){
     scene.add(new Tree(-10, -10, 0).tree);
 }
 function initMoon(){
-    scene.add(new Moon(0,40,0).moon);
+    scene.add(new Moon(60,80,60).moon);
 }
 function initSnowMan(){
     scene.add(new SnowMan(30,-10,30).snowMan);
 }
 function initLog(){
-    scene.add(new Log(-20,-10,-20).log);
+    scene.add(new Log(-20,-10,-20, Math.PI/4).log);
+    scene.add(new Log(-30,-10,-30, 0).log);
 }
 
 //light
 var dirLight = new THREE.DirectionalLight(0xffffff, 1);
 
-dirLight.position.set(30, 80, 0);
+dirLight.position.set(60, 80, 30);
 
 dirLight.castShadow = true;
 
