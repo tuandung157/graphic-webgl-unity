@@ -15,11 +15,12 @@ export default class Tree {
         let yellowMaterial = new THREE.MeshPhongMaterial({color: 0x7cff00}); 
         let cream2Material = new THREE.MeshPhongMaterial({color: 0xffe7ba}); 
         let green2Material = new THREE.MeshPhongMaterial({color: 0x3c6714});
-
+        //goc cay
         let c0 = new THREE.Mesh(new THREE.CylinderGeometry(2, 2, 12, 6, 1, true), brownMaterial);
         c0.position.y = 6;
         c0.receiveShadow = true;
         c0.castShadow = true;
+        //la
         let c1 = new THREE.Mesh(new THREE.CylinderGeometry(0, 10, 15, 8), greenMaterial);
         c1.position.y = 18;
         c1.receiveShadow = true;

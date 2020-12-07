@@ -39,8 +39,6 @@ export default class SnowMan {
         c3.position.y = 23;
         c3.receiveShadow = true;
         c3.castShadow = true;
-
-        //hand
         
         group.add(h1);
         group.add(h2);

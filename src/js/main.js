@@ -29,7 +29,7 @@ document.body.appendChild(renderer.domElement);
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.maxPolarAngle = Math.PI * 0.5;
 controls.minDistance = 50;
-controls.maxDistance = 500;
+controls.maxDistance = 1000;
 
 //ground
 let planeGeo = new THREE.CylinderGeometry( 1200, 1200, 20, 64 );
@@ -61,7 +61,6 @@ let map2 = textureLoader2.load("../resources/img/water-ice2.jpg");
 map2.wrapS = THREE.RepeatWrapping;
 map2.wrapT = THREE.RepeatWrapping;
 map2.repeat.set( 1, 1 );
-
 let lakeMat = new THREE.MeshPhongMaterial({
     map: map2,
 });
@@ -72,15 +71,28 @@ lake.position.y = -14.9;
 lake.position.z = 140;
 lake.receiveShadow = true;
 lake.castShadow = true;
-scene.add( lake );
+//scene.add( lake );
 
-// let lake1 = new THREE.Mesh(lakeGeo, lakeMat);
-// lake1.position.x = 120;
-// lake1.position.y = -14.9;
-// lake1.position.z = 450;
-// lake1.receiveShadow = true;
-// lake1.castShadow = true;
-// scene.add( lake1 );
+
+//lake1
+let lakeGeo1 = new THREE.CylinderGeometry( 30, 30, 20, 60 );
+const textureLoader3 = new THREE.TextureLoader();
+
+let map3 = textureLoader3.load("../resources/img/water.png");
+map3.wrapS = THREE.RepeatWrapping;
+map3.wrapT = THREE.RepeatWrapping;
+map3.repeat.set( 3, 3 );
+let lakeMat1 = new THREE.MeshPhongMaterial({
+    map: map3,
+})
+
+let lake1 = new THREE.Mesh(lakeGeo1, lakeMat1);
+lake1.position.x = 20;
+lake1.position.y = -14.9;
+lake1.position.z = 80;
+lake1.receiveShadow = true;
+lake1.castShadow = true;
+scene.add( lake1 );
 
 //init lake with mirror
 // scene size
@@ -149,7 +161,7 @@ function initTent(){
 }
 
 //light
-var dirLight = new THREE.DirectionalLight(0xffffff, 1);
+var dirLight = new THREE.DirectionalLight(0xffffff, 0.2);
 
 dirLight.position.set(40,120,40);
 
@@ -162,7 +174,7 @@ dirLight.shadow.camera.bottom = -50;
 dirLight.shadow.camera.right = 50;
 dirLight.shadow.camera.top = 50;
 dirLight.shadow.bias=0.00001;
-// dirLight.target.position.set(20, -2, 0);
+// dirLight.target.position.set(30, 0, 30);
 
 dirLight.shadow.radius = 1;
 scene.add(dirLight);

@@ -15,7 +15,6 @@ export default function (scene){
                     child.castShadow = true;
                     child.receiveShadow = true;             
                 }
-
             });
 
             object.castShadow = true;
